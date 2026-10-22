@@ -1,14 +1,25 @@
 manifest:
-  defaults:
-    revision: v0.3
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
-    # Additional modules containing boards/shields/custom code can be listed here as well
-    # See https://docs.zephyrproject.org/3.2.0/develop/west/manifest.html#projects
+    - name: sukumar
+      url-base: https://github.com/Sukumar002
+
   projects:
+    # Pinned to the custom ZMK revision used by the validated dongle/display feature work.
     - name: zmk
-      remote: zmkfirmware
+      remote: sukumar
+      revision: b19edf953498bf9d0a4598eb39d04e7e43339b08
       import: app/west.yml
+
+    # Shared behaviors, board/shield adapters, and display module integration.
+    - name: zmk-keyboards
+      remote: sukumar
+      revision: 6368883130961dfb4ba2018e735ae82d564f746d
+
+    - name: zmk-dongle-display
+      remote: sukumar
+      revision: 798868b9bc7e371e83c0b803f084c67ab437f9b7
+
   self:
     path: config
