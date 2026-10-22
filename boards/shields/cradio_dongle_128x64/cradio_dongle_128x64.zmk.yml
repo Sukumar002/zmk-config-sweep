@@ -1,7 +1,8 @@
 file_format: "1"
-id: cradio_dongle_128x64
-name: Sweep Pro Micro Dongle (128x64 SSD1306)
+id: cradio
+name: Sweep/Cradio Pro Micro Dongle (128x64 SSD1306)
 type: shield
 requires: [pro_micro]
 features:
+  - keys
   - display
