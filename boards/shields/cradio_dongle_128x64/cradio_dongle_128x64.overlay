@@ -5,11 +5,21 @@
 
 / {
     chosen {
-        zmk,kscan = &kscan0;
+        zmk,kscan = &mock_kscan;
         zephyr,display = &oled;
     };
 
-    kscan0: kscan1 {
+    /*
+     * The original cradio.keymap contains a pin override for &kscan0.
+     * Keep a disabled GPIO scanner node so that override remains valid,
+     * while the dongle itself uses the mock scanner below.
+     */
+    kscan0: kscan0 {
+        compatible = "zmk,kscan-gpio-direct";
+        status = "disabled";
+    };
+
+    mock_kscan: kscan1 {
         compatible = "zmk,kscan-mock";
         columns = <0>;
         rows = <0>;
