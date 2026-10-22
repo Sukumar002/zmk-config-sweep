@@ -70,6 +70,10 @@
         >;
     };
 
+    &tog_ls {
+        layout-maps = <&layout_shift_map_gui_alt>;
+    };
+
     behaviors {
         bt_profile: bt_profile {
             compatible = "zmk,behavior-hold-tap";
