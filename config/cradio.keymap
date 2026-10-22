@@ -34,8 +34,9 @@
 };
 
 // Home row mods macro
-#define HRML(k1,k2,k3,k4) &ht LSHFT k1  &ht LALT k2  &ht LCTRL k3  &ht LGUI k4
-#define HRMR(k1,k2,k3,k4) &ht RGUI k1  &ht RCTRL k2  &ht RALT k3  &ht RSHFT k4
+// Windows default: GUI/Windows key sits on the outer home-row mod; Alt sits closer to the index finger.
+#define HRML(k1,k2,k3,k4) &ht LSHFT k1  &ht LGUI k2  &ht LCTRL k3  &ht LALT k4
+#define HRMR(k1,k2,k3,k4) &ht RALT k1  &ht RCTRL k2  &ht RGUI k3  &ht RSHFT k4
 
 / {
     macros {
@@ -59,7 +60,7 @@
         };
     };
 
-    // Layout shift OFF = Mac (default); ON = Windows (GUI and Alt swap).
+    // Layout shift OFF = Windows (default); ON = Mac (GUI/Windows and Alt/Option swap).
     layout_shift_map_gui_alt: layout_shift_map_gui_alt {
         compatible = "zmk,layout-shift-map";
         mappings = <
