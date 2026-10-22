@@ -25,3 +25,9 @@ include:
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y
     artifact-name: sweep_central_128x64
+
+  # Dedicated settings-reset firmware for the nice!nano-compatible nRF52840 MCUs used by this build.
+  # Flash this only when you intentionally want to clear stored ZMK settings/bonding data.
+  - board: nice_nano//zmk
+    shield: settings_reset
+    artifact-name: sweep_settings_reset
