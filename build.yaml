@@ -1,5 +1,5 @@
-# Build both standalone BLE and dongle-based Sweep firmware.
-# The BLE keymap is preserved from the original Sweep configuration.
+# Build standalone BLE and dongle-based Sweep firmware.
+# The right peripheral firmware is identical in both modes and is built once.
 ---
 include:
   # Standalone BLE: left half is central, right half is peripheral.
@@ -9,19 +9,16 @@ include:
     cmake-args: -DCONFIG_ZMK_STUDIO=y
     artifact-name: sweep_ble_left_central
 
+  # Shared by both standalone BLE and dongle modes.
   - board: nice_nano//zmk
     shield: cradio_right
-    artifact-name: sweep_ble_right_peripheral
+    artifact-name: sweep_right_peripheral
 
-  # Dongle mode: both halves are peripherals; the dongle is central.
+  # Dongle mode: left half is a peripheral; the dongle is central.
   - board: nice_nano//zmk
     shield: cradio_left
     cmake-args: -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
     artifact-name: sweep_dongle_left_peripheral
-
-  - board: nice_nano//zmk
-    shield: cradio_right
-    artifact-name: sweep_dongle_right_peripheral
 
   - board: nice_nano//zmk
     shield: cradio_dongle_128x64 dongle_display
