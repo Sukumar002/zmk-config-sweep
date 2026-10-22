@@ -43,6 +43,26 @@
             require-prior-idle-ms = <100>;
             bindings = <&kp>, <&kp>;
         };
+
+        // Hana-style dongle/display controls. These are assigned only to
+        // previously transparent positions on Sweep's existing tri-layer.
+        oled_tog: oled_toggle {
+            compatible = "zmk,behavior-oled-toggle";
+            #binding-cells = <0>;
+            display-name = "OLED Toggle";
+        };
+
+        base_view_tog: base_view_toggle {
+            compatible = "zmk,behavior-base-view-toggle";
+            #binding-cells = <0>;
+            display-name = "BASE View Cycle";
+        };
+
+        timeout_cycle: timeout_cycle {
+            compatible = "zmk,behavior-timeout-cycle";
+            #binding-cells = <1>;
+            display-name = "Timeout Cycle";
+        };
     };
 
     conditional_layers {
@@ -110,7 +130,7 @@
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
         //│ RESET    │          │          │          │PROFILE 0 │   │          │          │          │          │  RESET   │
-           &sys_reset  &trans     &trans     &trans    &bt BT_SEL 0    &trans     &trans     &trans     &trans    &sys_reset
+           &sys_reset  &trans     &trans     &trans    &bt BT_SEL 0    &base_view_tog  &timeout_cycle 0  &timeout_cycle 1  &oled_tog  &sys_reset
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│BOOTLOADER│          │          │          │PROFILE 1 │   │          │          │          │          │BOOTLOADER│
           &bootloader  &trans     &trans     &trans    &bt BT_SEL 1    &trans     &trans     &trans     &trans    &bootloader
