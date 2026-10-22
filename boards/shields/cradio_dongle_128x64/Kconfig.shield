@@ -1,0 +1,4 @@
+# SPDX-License-Identifier: MIT
+
+config SHIELD_CRADIO_DONGLE_128X64
+    def_bool $(shields_list_contains,cradio_dongle_128x64)
