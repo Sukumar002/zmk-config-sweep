@@ -1,0 +1,6 @@
+/* Reserve four additional layer slots for ZMK Studio runtime layer creation. */
+#define ZMK_STUDIO_RUNTIME_LAYER_SLOTS_4 \
+    studio_runtime_layer_1 { status = "reserved"; }; \
+    studio_runtime_layer_2 { status = "reserved"; }; \
+    studio_runtime_layer_3 { status = "reserved"; }; \
+    studio_runtime_layer_4 { status = "reserved"; };
