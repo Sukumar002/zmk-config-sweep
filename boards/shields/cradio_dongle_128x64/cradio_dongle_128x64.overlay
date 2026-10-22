@@ -5,11 +5,11 @@
 
 / {
     chosen {
-        zmk,kscan = &mock_kscan;
+        zmk,kscan = &kscan0;
         zephyr,display = &oled;
     };
 
-    mock_kscan: kscan1 {
+    kscan0: kscan1 {
         compatible = "zmk,kscan-mock";
         columns = <0>;
         rows = <0>;
