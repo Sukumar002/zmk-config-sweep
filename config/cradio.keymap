@@ -38,7 +38,52 @@
 #define HRMR(k1,k2,k3,k4) &ht RGUI k1  &ht RCTRL k2  &ht RALT k3  &ht RSHFT k4
 
 / {
+    macros {
+        // Tap selects a host profile; a 3-second hold clears it and opens pairing.
+        bt_select_profile: bt_select_profile {
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
+            bindings =
+                <&macro_param_1to2>,
+                <&bt BT_SEL MACRO_PLACEHOLDER>;
+        };
+
+        bt_clear_profile: bt_clear_profile {
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
+            wait-ms = <20>;
+            bindings =
+                <&macro_param_1to2>,
+                <&bt BT_SEL MACRO_PLACEHOLDER>,
+                <&bt BT_CLR>;
+        };
+    };
+
+    // Layout shift OFF = Mac (default); ON = Windows (GUI and Alt swap).
+    layout_shift_map_gui_alt: layout_shift_map_gui_alt {
+        compatible = "zmk,layout-shift-map";
+        mappings = <
+            LGUI LALT LAYOUT_SHIFT_OPTIONAL_ALL
+            LALT LGUI LAYOUT_SHIFT_OPTIONAL_ALL
+            RGUI RALT LAYOUT_SHIFT_OPTIONAL_ALL
+            RALT RGUI LAYOUT_SHIFT_OPTIONAL_ALL
+        >;
+    };
+
     behaviors {
+        bt_profile: bt_profile {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <3000>;
+            bindings = <&bt_clear_profile>, <&bt_select_profile>;
+            hold-trigger-key-positions = <
+                0xffffffff 0xffffffff 0xffffffff 0xffffffff
+                0xffffffff 0xffffffff 0xffffffff 0xffffffff
+                0xffffffff 0xffffffff 0xffffffff 0xffffffff
+            >;
+            display-name = "Bluetooth Profile";
+        };
         ht: hold_tap {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
