@@ -1,7 +1,9 @@
+/* SPDX-License-Identifier: MIT */
 /*
- * Sweep dongle central: the dongle has no local key matrix.
- * The SSD1306 is wired to the nice!nano Pro Micro I2C pins.
+ * Sweep dongle central: no local key matrix.
+ * SSD1306 is wired to the nice!nano Pro Micro I2C pins.
  */
+#include <physical_layouts.dtsi>
 
 / {
     chosen {
@@ -10,9 +12,67 @@
     };
 
     /*
-     * The original cradio.keymap contains a pin override for &kscan0.
-     * Keep a disabled GPIO scanner node so that override remains valid,
-     * while the dongle itself uses the mock scanner below.
+     * Match the physical-layout and transform identifiers used by the
+     * Sweep halves. Studio requires the same layout metadata on the dongle
+     * even though this device has no physical keys.
+     */
+    cuddlykeyboards_ferris_layout: cuddlykeyboards_ferris_layout {
+        compatible = "zmk,physical-layout";
+        display-name = "Default";
+        transform = <&default_transform>;
+        keys = <
+            <&key_physical_attrs 100 100 0 95 0 0 0>,
+                        <&key_physical_attrs 100 100 100 32 0 0 0>,
+                        <&key_physical_attrs 100 100 200 0 0 0 0>,
+                        <&key_physical_attrs 100 100 300 28 0 0 0>,
+                        <&key_physical_attrs 100 100 400 42 0 0 0>,
+                        <&key_physical_attrs 100 100 700 42 0 0 0>,
+                        <&key_physical_attrs 100 100 800 28 0 0 0>,
+                        <&key_physical_attrs 100 100 900 0 0 0 0>,
+                        <&key_physical_attrs 100 100 1000 32 0 0 0>,
+                        <&key_physical_attrs 100 100 1100 95 0 0 0>,
+                        <&key_physical_attrs 100 100 0 195 0 0 0>,
+                        <&key_physical_attrs 100 100 100 132 0 0 0>,
+                        <&key_physical_attrs 100 100 200 100 0 0 0>,
+                        <&key_physical_attrs 100 100 300 129 0 0 0>,
+                        <&key_physical_attrs 100 100 400 142 0 0 0>,
+                        <&key_physical_attrs 100 100 700 142 0 0 0>,
+                        <&key_physical_attrs 100 100 800 129 0 0 0>,
+                        <&key_physical_attrs 100 100 900 100 0 0 0>,
+                        <&key_physical_attrs 100 100 1000 132 0 0 0>,
+                        <&key_physical_attrs 100 100 1100 195 0 0 0>,
+                        <&key_physical_attrs 100 100 0 295 0 0 0>,
+                        <&key_physical_attrs 100 100 100 231 0 0 0>,
+                        <&key_physical_attrs 100 100 200 200 0 0 0>,
+                        <&key_physical_attrs 100 100 300 229 0 0 0>,
+                        <&key_physical_attrs 100 100 400 242 0 0 0>,
+                        <&key_physical_attrs 100 100 700 242 0 0 0>,
+                        <&key_physical_attrs 100 100 800 229 0 0 0>,
+                        <&key_physical_attrs 100 100 900 200 0 0 0>,
+                        <&key_physical_attrs 100 100 1000 231 0 0 0>,
+                        <&key_physical_attrs 100 100 1100 295 0 0 0>,
+                        <&key_physical_attrs 330 100 330 355 1500 430 455>,
+                        <&key_physical_attrs 330 100 430 355 3000 430 455>,
+                        <&key_physical_attrs 330 100 670 355 -3000 770 455>,
+                        <&key_physical_attrs 330 100 770 355 -1500 770 455>
+        >;
+    };
+
+    default_transform: keymap_transform_0 {
+        compatible = "zmk,matrix-transform";
+        columns = <34>;
+        rows = <1>;
+        map = <
+            0 1 2 3 4 21 20 19 18 17
+            5 6 7 8 9 26 25 24 23 22
+            10 11 12 13 14 31 30 29 28 27
+            15 16 33 32
+        >;
+    };
+
+    /*
+     * The original keymap contains a pin override for &kscan0. Keep a
+     * disabled GPIO scanner node so that override remains valid.
      */
     kscan0: kscan0 {
         compatible = "zmk,kscan-gpio-direct";
