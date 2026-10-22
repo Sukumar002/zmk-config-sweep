@@ -70,10 +70,6 @@
         >;
     };
 
-    &tog_ls {
-        layout-maps = <&layout_shift_map_gui_alt>;
-    };
-
     behaviors {
         bt_profile: bt_profile {
             compatible = "zmk,behavior-hold-tap";
@@ -234,4 +230,8 @@
 
         ZMK_STUDIO_RUNTIME_LAYER_SLOTS_4
     };
+};
+
+&tog_ls {
+    layout-maps = <&layout_shift_map_gui_alt>;
 };
