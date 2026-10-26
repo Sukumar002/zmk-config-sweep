@@ -1,7 +1,7 @@
 &pinctrl {
     i2c0_default: i2c0_default {
         group1 {
-            /* Remap SDA to P0.06 (D0) and SCL to P0.08 (D1) */
+            /* Remap SDA to P0.06 (D0) and SCL to P0.08 (D1) only on the Dongle */
             psels = <NRF_PSEL(TWIM_SDA, 0, 6)>,
                     <NRF_PSEL(TWIM_SCL, 0, 8)>;
         };
