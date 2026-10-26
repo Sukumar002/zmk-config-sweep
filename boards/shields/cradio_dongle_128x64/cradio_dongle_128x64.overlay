@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+#include <dt-bindings/pinctrl/nrf-pinctrl.h>
 /*
  * Sweep dongle central: no local key matrix.
  * SSD1306 is wired to the nice!nano Pro Micro I2C pins.
@@ -87,8 +88,30 @@
     };
 };
 
+/* Dongle-only I2C pin remap. The peripheral shield overlays are untouched. */
+&pinctrl {
+    dongle_i2c0_default: dongle_i2c0_default {
+        group1 {
+            /* SDA = P0.06 (D0), SCL = P0.08 (D1) on the dongle MCU only. */
+            psels = <NRF_PSEL(TWIM_SDA, 0, 6)>,
+                    <NRF_PSEL(TWIM_SCL, 0, 8)>;
+        };
+    };
+
+    dongle_i2c0_sleep: dongle_i2c0_sleep {
+        group1 {
+            psels = <NRF_PSEL(TWIM_SDA, 0, 6)>,
+                    <NRF_PSEL(TWIM_SCL, 0, 8)>;
+            low-power-enable;
+        };
+    };
+};
+
 &pro_micro_i2c {
     status = "okay";
+    pinctrl-0 = <&dongle_i2c0_default>;
+    pinctrl-1 = <&dongle_i2c0_sleep>;
+    pinctrl-names = "default", "sleep";
 
     oled: ssd1306@3c {
         compatible = "solomon,ssd1306fb";
