@@ -1,0 +1,46 @@
+#include <dt-bindings/pinctrl/nrf-pinctrl.h>
+
+&pinctrl {
+    i2c0_default: i2c0_default {
+        group1 {
+            /* Remap SDA to P0.06 (D0) and SCL to P0.08 (D1) exclusively for the dongle shield */
+            psels = <NRF_PSEL(TWIM_SDA, 0, 6)>,
+                    <NRF_PSEL(TWIM_SCL, 0, 8)>;
+        };
+    };
+
+    i2c0_sleep: i2c0_sleep {
+        group1 {
+            psels = <NRF_PSEL(TWIM_SDA, 0, 6)>,
+                    <NRF_PSEL(TWIM_SCL, 0, 8)>;
+            low-power-enable;
+        };
+    };
+};
+
+&i2c0 {
+    status = "okay";
+    pinctrl-0 = <&i2c0_default>;
+    pinctrl-1 = <&i2c0_sleep>;
+    pinctrl-names = "default", "sleep";
+
+    oled: ssd1306@3c {
+        compatible = "solomon,ssd1306fb";
+        reg = <0x3c>;
+        width = <128>;
+        height = <64>;
+        segment-remap;
+        page-remap;
+        display-offset = <0>;
+        multiplex-ratio = <63>;
+        segment-offset = <0>;
+        page-offset = <0>;
+        prechargep = <0x22>;
+    };
+};
+
+/ {
+    chosen {
+        zephyr,display = &oled;
+    };
+};
