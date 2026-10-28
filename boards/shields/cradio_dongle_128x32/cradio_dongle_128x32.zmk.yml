@@ -1,0 +1,8 @@
+file_format: "1"
+id: cradio
+name: Sweep/Cradio Pro Micro Dongle (128x32 SSD1306 test)
+type: shield
+requires: [pro_micro]
+features:
+  - keys
+  - display
