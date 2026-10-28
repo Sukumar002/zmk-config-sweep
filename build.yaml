@@ -26,6 +26,13 @@ include:
     cmake-args: -DCONFIG_ZMK_STUDIO=y
     artifact-name: sweep_central_128x64
 
+  # Alternate dongle OLED resolution test. Same MCU, I2C pins (SDA P0.22 / SCL P0.24), and central role.
+  - board: nice_nano//zmk
+    shield: cradio_dongle_128x32 dongle_display
+    snippet: studio-rpc-usb-uart
+    cmake-args: -DCONFIG_ZMK_STUDIO=y
+    artifact-name: sweep_central_128x32
+
   # Dedicated settings-reset firmware for the nice!nano-compatible nRF52840 MCUs used by this build.
   # Flash this only when you intentionally want to clear stored ZMK settings/bonding data.
   - board: nice_nano//zmk
